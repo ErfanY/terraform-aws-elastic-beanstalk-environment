@@ -250,6 +250,11 @@ variable "aws_iam_instance_profile_policies" {
   default = []
 }
 
+variable "aws_iam_instance_profile_policies_count" {
+  description = "Number of IAM Instance profile policy arns"
+  default = "0"
+}
+
 variable "associate_public_ip_address" {
   default     = "false"
   description = "Specifies whether to launch instances in your VPC with public IP addresses."
