@@ -87,10 +87,10 @@ resource "aws_iam_role" "ec2" {
   assume_role_policy = "${data.aws_iam_policy_document.ec2.json}"
 }
 
-resource "aws_iam_role_policy" "default" {
-  name   = "${module.label.id}-default"
-  role   = "${aws_iam_role.ec2.id}"
-  policy = "${data.aws_iam_policy_document.default.json}"
+resource "aws_iam_role_policy_attachment" "custom-policies" {
+  count = "${length(var.aws_iam_instance_profile_policies)}"
+  role       = "${aws_iam_role.ec2.name}"
+  policy_arn = "${var.aws_iam_instance_profile_policies[count.index]}"
 }
 
 resource "aws_iam_role_policy_attachment" "web-tier" {

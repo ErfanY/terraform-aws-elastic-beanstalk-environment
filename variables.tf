@@ -244,6 +244,12 @@ variable "instance_type" {
   description = "Instances type"
 }
 
+variable "aws_iam_instance_profile_policies" {
+  description = "IAM Instance profile policy arns"
+  type = "list"
+  default = []
+}
+
 variable "associate_public_ip_address" {
   default     = "false"
   description = "Specifies whether to launch instances in your VPC with public IP addresses."
