@@ -1051,7 +1051,7 @@ resource "aws_s3_bucket" "elb_logs" {
 
 module "route53_alias" {
   source          = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=master"
-  aliases         = [ "${var.name}.${var.stage}.${var.namespace}.com" ]
+  aliases         = [ "${var.name}.${var.stage}" ]
   parent_zone_id  = "${var.zone_id}"
   target_dns_name = "${aws_elastic_beanstalk_environment.default.cname}"
   target_zone_id  = "${var.alb_zone_id[data.aws_region.default.name]}"
