@@ -1,5 +1,6 @@
 output "host" {
-  value       = "${module.tld.hostname}"
+  #value       = "${module.tld.hostname}"
+  value = "${module.route53_alias.hostnames}"
   description = "DNS hostname"
 }
 
