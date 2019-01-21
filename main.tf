@@ -1049,12 +1049,10 @@ resource "aws_s3_bucket" "elb_logs" {
   policy        = "${data.aws_iam_policy_document.elb_logs.json}"
 }
 
-module "tld" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-route53-cluster-hostname.git?ref=tags/0.2.5"
-  namespace = "${var.namespace}"
-  name      = "${var.name}"
-  stage     = "${var.stage}"
-  zone_id   = "${var.zone_id}"
-  records   = ["${aws_elastic_beanstalk_environment.default.cname}"]
-  enabled   = "${length(var.zone_id) > 0 ? "true" : "false"}"
+module "route53_alias" {
+  source          = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=master"
+  aliases         = [ "${var.name}.${var.stage}.${var.namespace}.com" ]
+  parent_zone_id  = "${var.zone_id}"
+  target_dns_name = "${aws_elastic_beanstalk_environment.default.cname}"
+  target_zone_id  = "${var.alb_zone_id[data.aws_region.default.name]}"
 }
