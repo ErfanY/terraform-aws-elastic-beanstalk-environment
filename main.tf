@@ -1,6 +1,6 @@
 # Define composite variables for resources
 module "label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.6"
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=master"
   namespace  = "${var.namespace}"
   name       = "${var.name}"
   stage      = "${var.stage}"
@@ -1017,6 +1017,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
     value     = "${var.notification_topic_name}"
   }
   depends_on = ["aws_security_group.default"]
+  tags = "${module.label.tags}"
 }
 
 data "aws_elb_service_account" "main" {}
@@ -1047,6 +1048,7 @@ resource "aws_s3_bucket" "elb_logs" {
   acl           = "private"
   force_destroy = "${var.force_destroy}"
   policy        = "${data.aws_iam_policy_document.elb_logs.json}"
+  tags = "${module.label.tags}"
 }
 
 module "route53_alias" {
