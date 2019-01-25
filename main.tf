@@ -339,7 +339,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
 
   version_label = "${var.version_label}"
 
-  tags {
+  tags = {
     Namespace = "${module.label.namespace}"
     Stage = "${module.label.stage}"
   }
@@ -1019,7 +1019,6 @@ resource "aws_elastic_beanstalk_environment" "default" {
     value     = "${var.notification_topic_name}"
   }
   depends_on = ["aws_security_group.default"]
-  tags = "${module.label.tags}"
 }
 
 data "aws_elb_service_account" "main" {}
