@@ -55,6 +55,11 @@ variable "health_streaming_retention_in_days" {
   description = "The number of days to keep the archived health data before it expires."
 }
 
+variable "enable_xray" {
+  default     = false
+  description = "Whether to enable X-Ray."
+}
+
 variable "healthcheck_url" {
   default     = "/healthcheck"
   description = "Application Health Check URL. Elastic Beanstalk will call this URL to check the health of the application running on EC2 instances"

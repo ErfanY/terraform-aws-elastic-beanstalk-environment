@@ -340,6 +340,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   version_label = "${var.version_label}"
 
   tags = {
+    Name = "${module.label.id}"
     Namespace = "${module.label.namespace}"
     Stage = "${module.label.stage}"
   }
@@ -438,6 +439,14 @@ resource "aws_elastic_beanstalk_environment" "default" {
     namespace = "aws:elasticbeanstalk:cloudwatch:logs:health"
     name      = "RetentionInDays"
     value     = "${var.health_streaming_retention_in_days}"
+  }
+
+  ###=========================== XRAY ========================== ###
+
+  setting {
+    namespace = "aws:elasticbeanstalk:xray"
+    name      = "XRayEnabled"
+    value     = "${var.enable_xray ? "true" : "false"}"
   }
 
   ###=========================== Autoscale trigger ========================== ###
